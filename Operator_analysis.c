@@ -84,7 +84,11 @@ int main(int argc,char *argv[]){
 		}
 		else if(flag == 1){
 			char i;	
-			if(nowopint==6 && (optoint(opstack[tops])!=8 &&optoint(opstack[tops]!=5) )){
+			if(nowopint==6  && (lastopint !=3 && optoint(opstack[tops])!=8 && lastopint!=5) ){
+				printf("RE\n");
+				break;
+			}
+			if(nowopint==5 && (lastopint !=3 && optoint(opstack[tops])!=8)){
 				printf("RE\n");
 				break;
 			}
