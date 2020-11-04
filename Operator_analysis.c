@@ -2,7 +2,7 @@
 #include<string.h>
 char opstack[1024];//符号栈
 char input[1024];//读入
-int topi = -1; 
+int topi = 0; 
 int tops = -1;//符号栈指针
 
 char nowopchar;//当前符号
@@ -11,9 +11,6 @@ int lastopint = 0;//上一个读入符号对应值
 int flag = 0;
 int eof = 0;
 
-void init() {
-	opstack[++tops] = '#';
-}
 
 int operator(int x, int y) {
 	int a[6][6] = {
@@ -41,7 +38,7 @@ int optoint(char s) {
 			return 5;
 		case '#':
 			return 6;
-		case '\r':
+		case '\n':
 			return 7;
 		case 'N':
 			return 8;
@@ -54,23 +51,21 @@ int optoint(char s) {
 int main(int argc,char *argv[]){
 	int j=0;
 	FILE *fp = NULL;
-	fp = fopen( argv[1] , "r");//读入文件 
-//	fp = fopen( "TEST.txt" , "r");//test测试  
+//	fp = fopen( argv[1] , "r");//读入文件 
+	fp = fopen( "TEST.txt" , "r");//test测试  
 	if(fp == NULL){
 		return 0;
 	}
 	fgets(input,1024,fp);
-	init();
+	opstack[++tops] = '#';
 	while(1){
-		nowopchar = input[++topi];
+		nowopchar = input[topi];
 		nowopint = optoint(nowopchar);
 		if (nowopint == 0){
 			printf("E\n");
 			break;
 		}
 		if (nowopint == 7){
-			if(input)
-			topi--;
 			input[topi] = '#';
 			nowopchar = '#';
 			nowopint = optoint(nowopchar);
@@ -90,23 +85,27 @@ int main(int argc,char *argv[]){
 		}
 		else if(flag == 1){
 			char i;	
+			if(nowopint==6 && (optoint(opstack[tops])!=8 &&optoint(opstack[tops]!=5) )){
+				printf("RE\n");
+				break;
+			}
 			do{
-					i=opstack[j];
-					if(optoint(opstack[j-1]) == 8){
-						j = j - 2;
-					}
-					else{
-						j = j - 1;
-					}
-				}while(operator(optoint(opstack[j]),optoint(i))!=-1);
-				tops = j + 1;
-				topi--;
-				opstack[tops]='N';
-				printf("R\n");
+				i=opstack[j];
+				if(optoint(opstack[j-1]) == 8){
+					j = j - 2;
+				}
+				else{
+					j = j - 1;
+				}
+			}while(operator(optoint(opstack[j]),optoint(i))!=-1);
+			tops = j + 1;
+			opstack[tops]='N';
+			printf("R\n");
 		}
 		else if(flag == -1){
 			opstack[++tops] = nowopchar;	
 			printf("I%c\n",nowopchar);
+			topi++; 
 		}
 		else if(flag == 2){
 			if(opstack[j]=='#'){
@@ -115,6 +114,7 @@ int main(int argc,char *argv[]){
 			else{
 				opstack[++tops] = nowopchar;	
 				printf("I%c\n",nowopchar);	
+				topi++;
 			}
 		}
 	}
