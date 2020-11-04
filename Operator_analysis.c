@@ -38,7 +38,7 @@ int optoint(char s) {
 			return 5;
 		case '#':
 			return 6;
-		case '\n':
+		case '\r':
 			return 7;
 		case 'N':
 			return 8;
@@ -51,8 +51,7 @@ int optoint(char s) {
 int main(int argc,char *argv[]){
 	int j=0;
 	FILE *fp = NULL;
-//	fp = fopen( argv[1] , "r");//读入文件 
-	fp = fopen( "TEST.txt" , "r");//test测试  
+	fp = fopen( argv[1] , "r");//读入文件 
 	if(fp == NULL){
 		return 0;
 	}
