@@ -1,13 +1,13 @@
 #include<stdio.h>
 #include<string.h>
-char opstack[1024];//·ûºÅÕ»
-char input[1024];//¶ÁÈë
+char opstack[1024];//ç¬¦å·æ ˆ
+char input[1024];//è¯»å…¥
 int topi = -1; 
-int tops = -1;//·ûºÅÕ»Ö¸Õë
+int tops = -1;//ç¬¦å·æ ˆæŒ‡é’ˆ
 
-char nowopchar;//µ±Ç°·ûºÅ
-int nowopint = 0;//µ±Ç°¶ÁÈë·ûºÅ¶ÔÓ¦Öµ
-int lastopint = 0;//ÉÏÒ»¸ö¶ÁÈë·ûºÅ¶ÔÓ¦Öµ
+char nowopchar;//å½“å‰ç¬¦å·
+int nowopint = 0;//å½“å‰è¯»å…¥ç¬¦å·å¯¹åº”å€¼
+int lastopint = 0;//ä¸Šä¸€ä¸ªè¯»å…¥ç¬¦å·å¯¹åº”å€¼
 int flag = 0;
 int eof = 0;
 
@@ -41,7 +41,7 @@ int optoint(char s) {
 			return 5;
 		case '#':
 			return 6;
-		case '\n':
+		case '\r':
 			return 7;
 		case 'N':
 			return 8;
@@ -54,8 +54,8 @@ int optoint(char s) {
 int main(int argc,char *argv[]){
 	int j=0;
 	FILE *fp = NULL;
-	fp = fopen( argv[1] , "r");//¶ÁÈëÎÄ¼ş 
-//	fp = fopen( "TEST.txt" , "r");//test²âÊÔ  
+	fp = fopen( argv[1] , "r");//è¯»å…¥æ–‡ä»¶ 
+//	fp = fopen( "TEST.txt" , "r");//testæµ‹è¯•  
 	if(fp == NULL){
 		return 0;
 	}
@@ -89,10 +89,8 @@ int main(int argc,char *argv[]){
 			break;
 		}
 		else if(flag == 1){
-			char i;
-			if(lastopint == 3||lastopint == 8||nowopint == 3){
-				
-				do{
+			char i;	
+			do{
 					i=opstack[j];
 					if(optoint(opstack[j-1]) == 8){
 						j = j - 2;
@@ -105,11 +103,6 @@ int main(int argc,char *argv[]){
 				topi--;
 				opstack[tops]='N';
 				printf("R\n");
-			}
-			else{
-				printf("RE\n");
-				break;
-			}
 		}
 		else if(flag == -1){
 			opstack[++tops] = nowopchar;	
