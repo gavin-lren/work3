@@ -1,6 +1,6 @@
 [jobs.opg]
 
-image = { source = "dockerfile", path = ".", tag = "my-pascal-Ope"}
+image = { source = "dockerfile", path = ".", tag = "my-opg"}
 
 run = [
   "./Operator_analysis $input",
