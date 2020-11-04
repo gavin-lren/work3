@@ -79,16 +79,12 @@ int main(int argc,char *argv[]){
 		lastopint = optoint(opstack[j]);
 		flag = operator(lastopint, nowopint);
 		if (flag == 0) {
-			printf("E\n");
+			printf("RE\n");
 			break;
 		}
 		else if(flag == 1){
 			char i;	
-			if(nowopint==6  && (lastopint !=3 && optoint(opstack[tops])!=8 && lastopint!=5) ){
-				printf("RE\n");
-				break;
-			}
-			if(nowopint==5 && (lastopint !=3 && optoint(opstack[tops])!=8)){
+			if((nowopint==6 || nowopint==5) && (lastopint !=3 && optoint(opstack[tops])!=8 && lastopint!=5) ){
 				printf("RE\n");
 				break;
 			}
