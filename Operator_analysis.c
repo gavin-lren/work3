@@ -60,7 +60,7 @@ int main(int argc,char *argv[]){
 	while(1){
 		nowopchar = input[topi];
 		nowopint = optoint(nowopchar);
-		if (nowopint == 0){
+		if (nowopint == 0||(nowopint==3 && optoint(opstack[tops]) == 3)){
 			printf("E\n");
 			break;
 		}
